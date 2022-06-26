@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/startup_bg_color"
+    tools:context=".StartUp">
+
+
+    <ImageView
+        android:id="@+id/prev_image"
+        android:layout_width="match_parent"
+        android:layout_height="308dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="124dp"
+        android:contentDescription="@string/design_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/startup_illustration" />
+
+    <TextView
+        android:id="@+id/prev_shortdesc"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Capture what's on your mind and get a reminder later at the right place or time"
+        android:textAlignment="center"
+        android:textColor="@color/font_dark_blue_secondary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/prev_title"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="@+id/prev_title"
+        app:layout_constraintTop_toBottomOf="@+id/prev_title" />
+
+    <TextView
+        android:id="@+id/prev_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Create Free Notes"
+        android:textAllCaps="true"
+        android:textColor="@color/font_dark_blue"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/prev_image"
+        app:layout_constraintTop_toBottomOf="@+id/prev_image" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_startup"
+        android:layout_width="200dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="132dp"
+        android:background="@drawable/btn_blue_radius_15"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Get Started"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="@+id/prev_shortdesc"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="@+id/prev_shortdesc"
+        app:layout_constraintTop_toBottomOf="@+id/prev_shortdesc" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

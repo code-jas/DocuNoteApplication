@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">DocuNoteApplication</string>
+
+
+    <string name="c_account_header">Learn on the go</string>
+    <string name="c_account_short_desc">Master your skills with fun and learn from very fundamentals.</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="design_image">design-image</string>
+</resources>
