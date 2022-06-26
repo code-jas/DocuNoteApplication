@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
 
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:textColor="#164276"
 
             android:textSize="17sp"

@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class SignUp extends AppCompatActivity {
     private static final String Tag = "MainActivity";
     private static final int  SPLASH_SCREEN = 500;
@@ -26,6 +29,8 @@ public class SignUp extends AppCompatActivity {
     private static String passEmail = "";
     private static String passPassword = "";
 
+
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
@@ -52,18 +57,52 @@ public class SignUp extends AppCompatActivity {
                 new Handler().postDelayed(() -> {
 
                     // Todo : Save the user data to the firebase database
-                    setPassName(String.valueOf(name.getText()));
-                    setPassEmail(String.valueOf(email.getText()));
-                    setPassPassword(String.valueOf(password.getText()));
-                    Intent intent = new Intent(SignUp.this,MainActivity.class);
-                    startActivity(intent);
+//                    setPassName(String.valueOf(name.getText()));
+//                    setPassEmail(String.valueOf(email.getText()));
+//                    setPassPassword(String.valueOf(password.getText()));
 
-                    finish();
+                    firebaseAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
+                            .addOnCompleteListener(SignUp.this, task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(SignUp.this, "User created successfully", Toast.LENGTH_SHORT).show();
+                                    sendEmailVerification();
+
+                                } else {
+                                    Toast.makeText(SignUp.this, "Email not registered: error found " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Log.d(Tag, "Error: " + task.getException().getMessage());
+                                }
+                            });
+
+//                    Intent intent = new Intent(SignUp.this,MainActivity.class);
+//                    startActivity(intent);
+//
+//                    finish();
                 },SPLASH_SCREEN);
             } else {
                 Toast.makeText(SignUp.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+
+    private void sendEmailVerification() {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if(firebaseUser!=null) {
+            firebaseUser.sendEmailVerification().addOnCompleteListener(SignUp.this, task -> {
+                if(task.isSuccessful()) {
+                    Toast.makeText(SignUp.this, "Verification email sent", Toast.LENGTH_SHORT).show();
+                    firebaseAuth.signOut();
+                    finish();
+                    startActivity(new Intent(SignUp.this, MainActivity.class));
+                } else {
+                    Toast.makeText(SignUp.this, "Email not registered: error found", Toast.LENGTH_SHORT).show();
+                    Log.d(Tag, "Error: " + task.getException().getMessage());
+                }
+            });
+        } else {
+            Toast.makeText(this, "Failed to send verification email", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -97,15 +136,11 @@ public class SignUp extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private Boolean isValidEmail(){
-        String pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
         if(email.getText().toString().isEmpty()){
             emailErr.setText("Email is required");
             return false;
-        } else if(!email.getText().toString().matches(pattern)){
-            emailErr.setText("Email must be valid");
-            return false;
-        }else{
+        } else{
             emailErr.setText("");
             return true;
         }
@@ -253,6 +288,10 @@ public class SignUp extends AppCompatActivity {
         emailErr = findViewById(R.id.email_err_txtView);
         passwordErr = findViewById(R.id.password_err_txtView);
         cPasswordErr = findViewById(R.id.cpassword_err_txtView);
+
+
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
 
 

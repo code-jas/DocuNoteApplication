@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private final String Tag = "Login";
@@ -19,11 +22,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView vgoToSignUp, vgoToForgotPassword;
     private TextInputLayout vloginEmailLayout, vloginPasswordLayout;
 
-
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initViewsLogin();
 
         vgoToSignUp.setOnClickListener(v -> {
@@ -51,6 +56,25 @@ public class MainActivity extends AppCompatActivity {
                 vloginEmailErr.setText("");
                 vloginPasswordErr.setText("");
 
+                firebaseAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                firebaseUser = firebaseAuth.getCurrentUser();
+                                assert firebaseUser != null;
+                                if(firebaseUser.isEmailVerified()){
+                                    Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else {
+                                    Toast.makeText(this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                                    firebaseAuth.signOut();
+                                }
+                            } else {
+                                Toast.makeText(this, "Email not registered", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
             }
         });
 
@@ -75,6 +99,13 @@ public class MainActivity extends AppCompatActivity {
         vloginEmailLayout = findViewById(R.id.si_email_textInputLayout);
         vloginPasswordLayout = findViewById(R.id.si_password_textInputLayout);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
+        if(firebaseUser != null){
+            Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
