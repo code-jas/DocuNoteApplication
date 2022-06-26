@@ -14,14 +14,7 @@
         android:theme="@style/Theme.DocuNoteApplication"
         tools:targetApi="31">
         <activity
-<<<<<<< Updated upstream
             android:name=".NotesActivity"
-=======
-            android:name=".createnote"
-            android:exported="false" />
-        <activity
-            android:name=".notesActivity"
->>>>>>> Stashed changes
             android:exported="false" />
         <activity
             android:name=".StartUp"
@@ -40,11 +33,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-<<<<<<< Updated upstream
             android:exported="true"></activity>
-=======
-            android:exported="true" />
->>>>>>> Stashed changes
     </application>
 
 </manifest>
