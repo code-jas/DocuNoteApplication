@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateNote">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarofcreatenote"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <EditText
+            android:id="@+id/createtitleofnote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/font_primary_205"
+            android:fontFamily="@font/poppins_semibold"
+            android:hint="Title"
+            android:paddingTop="12dp"
+            android:textColor="@color/font_primary_205"
+            android:textColorHighlight="@color/font_primary_205"
+            android:textColorLink="@color/font_primary_205"
+            android:textCursorDrawable="@drawable/text_cursor_primary"
+            android:textSize="22sp"
+
+            android:textStyle="bold" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/createcontentofnote"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarofcreatenote"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="top|left"
+        android:hint="Input your note here"
+        android:padding="15dp"
+        android:textColor="@color/font_primary"
+        android:textColorHighlight="@color/font_primary_205"
+        android:textColorLink="@color/font_primary_205"
+        android:textCursorDrawable="@drawable/text_cursor_primary"
+        android:textSize="17sp"
+
+        tools:ignore="SpeakableTextPresentCheck">
+
+    </EditText>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/savenote"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="31dp"
+        android:layout_marginBottom="31dp"
+        android:src="@drawable/send_icon"
+        app:backgroundTint="@color/btn_blue_light"
+        app:maxImageSize="60dp"
+        app:tint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+
+    <ProgressBar
+        android:id="@+id/progressbarofcreatenote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:visibility="invisible"
+        android:layout_centerInParent="true">
+
+    </ProgressBar>
+
+</RelativeLayout>
