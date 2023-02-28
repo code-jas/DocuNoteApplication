@@ -1,19 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NotesActivity">
 
-    <TextView
-        android:id="@+id/textView"
+
+
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frame_layout"
+        android:layout_above="@+id/bottom_navigation"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        app:elevation="7dp"
+        app:menu="@menu/bottom_nav_menu" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/createnotefab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="324dp"
-        android:text="Notes Main Acitivty"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="bottom|center"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="25dp"
+        android:background="@color/btn_blue_light"
+        android:contentDescription="add button"
+        android:src="@drawable/ic_baseline_add_24"
+        android:visibility="visible"
+        app:elevation="8dp"
+        app:maxImageSize="40dp"
+        app:rippleColor="#FFFFFF"
+        app:tint="@color/white" />
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/notes_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/searchview_backgroundd"
+            android:iconifiedByDefault="false"
+            android:queryBackground="@android:color/transparent"
+            android:queryHint="Enter title" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/notes_container_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search_view"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/gray">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/grid_view_button"
+                    style="@style/Widget.App.Button.IconOnly"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/input_box_color"
+                    android:gravity="center"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="0dp"
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_outline_view_module_24"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/btn_blue_50"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:maxImageSize="20dp"
+                    tools:ignore="TouchTargetSizeCheck,DuplicateClickableBoundsCheck" />
+
+                <Button
+                    android:id="@+id/list_view_button"
+                    style="@style/Widget.App.Button.IconOnly"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/input_box_color"
+                    android:gravity="center"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="0dp"
+                    app:icon="@drawable/ic_outline_view_list_24"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/btn_blue_50"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:maxImageSize="50dp"
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/notes_container_header"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="60dp"
+            android:scrollbars="vertical" />
+
+
+    </RelativeLayout>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/settings_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="1dp"
+        android:visibility="gone"
+        app:cardCornerRadius="50dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/logout_btn"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/btn_blue_radius_15"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Logout"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="@+id/setting_docunote_title2"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="@+id/setting_docunote_title2"
+                app:layout_constraintTop_toBottomOf="@+id/setting_docunote_title2" />
+
+            <ImageView
+                android:id="@+id/setting_docunote_img"
+                android:layout_width="257dp"
+                android:layout_height="280dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.32999998"
+                app:srcCompat="@drawable/docunote_logo" />
+
+            <TextView
+                android:id="@+id/setting_docunote_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="9dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="DocuNote"
+                android:textColor="@color/btn_blue_light"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/setting_docunote_img"
+                app:layout_constraintStart_toStartOf="@+id/setting_docunote_img"
+                app:layout_constraintTop_toBottomOf="@+id/setting_docunote_img" />
+
+            <TextView
+                android:id="@+id/setting_docunote_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/poppins_semibold"
+                android:text=" Easily manage your notes on your phone"
+                android:textColor="@color/btn_blue_light"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="@+id/setting_docunote_title"
+                app:layout_constraintHorizontal_bias="0.461"
+                app:layout_constraintStart_toStartOf="@+id/setting_docunote_title"
+                app:layout_constraintTop_toBottomOf="@+id/setting_docunote_title" />
+
+            <TextView
+                android:id="@+id/name_txtView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="John Angelo "
+                android:textColor="@color/font_primary_205"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toTopOf="@+id/email_txtView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.142"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/email_txtView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="johnangelo.silvestre@gmail.com"
+                android:textColor="@color/font_primary"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toTopOf="@+id/setting_docunote_img"
+                app:layout_constraintEnd_toEndOf="@+id/name_txtView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/name_txtView" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Hello!"
+                android:textColor="@color/font_primary_205"
+                android:textSize="32sp"
+                android:layout_marginBottom="-10dp"
+                app:layout_constraintBottom_toTopOf="@+id/name_txtView"
+                app:layout_constraintEnd_toEndOf="@+id/name_txtView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/name_txtView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+</RelativeLayout>

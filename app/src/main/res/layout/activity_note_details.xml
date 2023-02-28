@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoteDetails">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarofnotedetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/titleofnotedetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingTop="12dp"
+            android:text="Title display here"
+            android:textColor="@color/font_primary_205"
+            android:textSize="22sp" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/contentofnotedetail"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarofnotedetail"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="-2dp"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="top|left"
+        android:hint="Enter your note content here"
+        android:padding="15dp"
+        android:textColor="@color/font_primary_205"
+        android:textSize="17sp">
+
+    </TextView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_gravity="bottom|end"
+        android:id="@+id/gotoeditnote"
+        android:src="@drawable/edit"
+        app:tint="@color/white"
+        app:fabCustomSize="60dp"
+        app:backgroundTint="@color/btn_blue_light"
+        app:maxImageSize="24dp">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+</RelativeLayout>

@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.ktx.Firebase;
 
+import java.util.Objects;
+
 public class ForgotPassword extends AppCompatActivity {
     private final String Tag = "ForgotPassword";
 
@@ -26,7 +28,7 @@ public class ForgotPassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-
+        Objects.requireNonNull(getSupportActionBar()).hide();
         initViewsForgotPassword();
 
         vbtnBackToLogin.setOnClickListener(v -> {

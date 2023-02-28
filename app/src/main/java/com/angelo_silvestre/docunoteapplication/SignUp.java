@@ -6,15 +6,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class SignUp extends AppCompatActivity {
     private static final String Tag = "MainActivity";
@@ -31,6 +44,8 @@ public class SignUp extends AppCompatActivity {
 
 
     private FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
+    FirebaseUser firebaseUser;
 
 
     @Override
@@ -39,7 +54,7 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         initViews();
 
-
+        Objects.requireNonNull(getSupportActionBar()).hide();
         backBtn.setOnClickListener(view -> new Handler().postDelayed(() -> {
             Intent intent = new Intent(SignUp.this,MainActivity.class);
             startActivity(intent);
@@ -57,18 +72,34 @@ public class SignUp extends AppCompatActivity {
                 new Handler().postDelayed(() -> {
 
                     // Todo : Save the user data to the firebase database
-//                    setPassName(String.valueOf(name.getText()));
-//                    setPassEmail(String.valueOf(email.getText()));
-//                    setPassPassword(String.valueOf(password.getText()));
+                    String nameAttr = name.getText().toString();
+                    String emailAttr = email.getText().toString().trim();
+                    String passwordAttr = password.getText().toString().trim();
 
-                    firebaseAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
+                    firebaseAuth.createUserWithEmailAndPassword(emailAttr,passwordAttr)
                             .addOnCompleteListener(SignUp.this, task -> {
                                 if (task.isSuccessful()) {
+                                    UserProfile userProfile = new UserProfile(nameAttr,emailAttr,passwordAttr);
+
+                                    FirebaseDatabase.getInstance().getReference("users")
+                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                            .setValue(userProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful()){
+                                                        Log.d(Tag, "onComplete Add the user name: Success");
+                                                    }
+                                                    else {
+                                                        Log.d(Tag, "onComplete Add the user name: Failed");
+                                                    }
+                                                }
+                                            });
+
                                     Toast.makeText(SignUp.this, "User created successfully", Toast.LENGTH_SHORT).show();
                                     sendEmailVerification();
 
                                 } else {
-                                    Toast.makeText(SignUp.this, "Email not registered: error found " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignUp.this, "Email not registered: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     Log.d(Tag, "Error: " + task.getException().getMessage());
                                 }
                             });
@@ -82,6 +113,11 @@ public class SignUp extends AppCompatActivity {
                 Toast.makeText(SignUp.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+
+
+    private void saveNameOfUser(String name){
 
     }
 
@@ -138,7 +174,7 @@ public class SignUp extends AppCompatActivity {
     private Boolean isValidEmail(){
 
         if(email.getText().toString().isEmpty()){
-            emailErr.setText("Email is required");
+                emailErr.setText("Email is required");
             return false;
         } else{
             emailErr.setText("");
@@ -214,60 +250,7 @@ public class SignUp extends AppCompatActivity {
         }
         return isValid;
     }
-//
-//    @SuppressLint("SetTextI18n")
-//    private Boolean emptyFields(){
-//        boolean emptyInp = false;
-//
-//        String nameStr = name.getText().toString();
-//        String emailStr = email.getText().toString();
-//        String passwordStr = password.getText().toString();
-//        String cPasswordStr = cPassword.getText().toString();
-//
-//
-//        if(nameStr.isEmpty() || emailStr.isEmpty() || passwordStr.isEmpty() || cPasswordStr.isEmpty()){
-//
-//            if(nameStr.isEmpty()) {
-//                Log.d(Tag,"Name is empty");
-//                nameErr.setText("Name is required");
-//                emptyInp = true;
-//            } else {
-//                Log.d(Tag,"Name is not empty");
-//                nameErr.setText("");
-//            }
-//            if(emailStr.isEmpty()){
-//                Log.d(Tag,"Email is empty");
-//                emailErr.setText("Email is required");
-//                emptyInp = true;
-//            } else  {
-//                Log.d(Tag,"Email is not empty");
-//                emailErr.setText("");
-//            }
-//            if(passwordStr.isEmpty()){
-//                Log.d(Tag,"Password is empty");
-//                passwordErr.setText("Password is required");
-//                emptyInp = true;
-//            } else{
-//                Log.d(Tag,"Password is not empty");
-//                passwordErr.setText("");
-//
-//            }
-//
-//            if(cPasswordStr.isEmpty()){
-//                Log.d(Tag,"Confirm Password is empty");
-//                cPasswordErr.setText("Confirm password is required");
-//                emptyInp = true;
-//            } else {
-//                Log.d(Tag,"Confirm Password is not empty");
-//                cPasswordErr.setText("");
-//            }
-//        } else {
-//            emptyInp = false;
-//        }
-//
-//        return emptyInp;
-//
-//    }
+
 
 
     private void initViews(){
@@ -292,6 +275,8 @@ public class SignUp extends AppCompatActivity {
 
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
 
 

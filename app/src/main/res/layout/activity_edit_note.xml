@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditNote">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarofeditnote"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <EditText
+            android:id="@+id/edittitleofnote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/font_primary_205"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="12dp"
+            android:textColor="@color/font_primary_205"
+            android:textColorHighlight="@color/font_primary_205"
+            android:textColorLink="@color/font_primary_205"
+            android:textCursorDrawable="@drawable/text_cursor_primary"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/editcontentofnote"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarofeditnote"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="-1dp"
+        android:layout_marginBottom="1dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="top|left"
+        android:padding="15dp"
+        android:textColor="@color/font_primary"
+        android:textColorHighlight="@color/font_primary_205"
+        android:textColorLink="@color/font_primary_205"
+        android:textCursorDrawable="@drawable/text_cursor_primary"
+        android:textSize="17sp"
+        tools:ignore="SpeakableTextPresentCheck">
+
+    </EditText>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/saveeditnote"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="31dp"
+        android:layout_marginBottom="31dp"
+        android:contentDescription="save edit"
+        android:src="@drawable/send_icon"
+        app:backgroundTint="@color/btn_blue_light"
+        app:maxImageSize="50dp"
+
+
+        app:tint="@color/white" />
+
+
+</RelativeLayout>

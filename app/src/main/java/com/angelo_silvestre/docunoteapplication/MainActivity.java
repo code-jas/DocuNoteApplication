@@ -5,14 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private final String Tag = "Login";
@@ -24,11 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+
+    private ProgressBar vprogressBarOfMainActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Objects.requireNonNull(getSupportActionBar()).hide();
         initViewsLogin();
 
         vgoToSignUp.setOnClickListener(v -> {
@@ -56,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 vloginEmailErr.setText("");
                 vloginPasswordErr.setText("");
 
+                vprogressBarOfMainActivity.setVisibility(View.VISIBLE);
+
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
@@ -67,11 +75,13 @@ public class MainActivity extends AppCompatActivity {
                                     finish();
                                 }
                                 else {
+                                    vprogressBarOfMainActivity.setVisibility(View.INVISIBLE);
                                     Toast.makeText(this, "Please verify your email", Toast.LENGTH_SHORT).show();
                                     firebaseAuth.signOut();
                                 }
                             } else {
-                                Toast.makeText(this, "Email not registered", Toast.LENGTH_SHORT).show();
+                                vprogressBarOfMainActivity.setVisibility(View.INVISIBLE);
+                                Toast.makeText(this, "Email not registered or Wrong Password", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -98,10 +108,12 @@ public class MainActivity extends AppCompatActivity {
         vgoToForgotPassword = findViewById(R.id.goto_forgot_password);
         vloginEmailLayout = findViewById(R.id.si_email_textInputLayout);
         vloginPasswordLayout = findViewById(R.id.si_password_textInputLayout);
+        vprogressBarOfMainActivity = findViewById(R.id.progressbarofmainactivity);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
+        // setting the user direct to the notes when  the user is already logged in
         if(firebaseUser != null){
             Intent intent = new Intent(MainActivity.this, NotesActivity.class);
             startActivity(intent);

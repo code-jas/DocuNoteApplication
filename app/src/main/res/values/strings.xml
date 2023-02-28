@@ -6,4 +6,6 @@
     <string name="c_account_short_desc">Master your skills with fun and learn from very fundamentals.</string>
     <string name="sign_up">Sign Up</string>
     <string name="design_image">design-image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

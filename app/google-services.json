@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1012091718528",
+    "project_id": "docunoteapplication",
+    "storage_bucket": "docunoteapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012091718528:android:9d0a63b1fe02514f0f0f65",
+        "android_client_info": {
+          "package_name": "com.angelo_silvestre.docunoteapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012091718528-cmdc93agv5j6ohvbm34pkpbo7at77opr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9ENDP7y3zXgKBZGI5Phpmp9krWbw92Uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012091718528-cmdc93agv5j6ohvbm34pkpbo7at77opr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

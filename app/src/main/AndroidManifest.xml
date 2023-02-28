@@ -14,6 +14,18 @@
         android:theme="@style/Theme.DocuNoteApplication"
         tools:targetApi="31">
         <activity
+            android:name=".NoteDetails"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
+            android:name=".EditNote"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+        <activity
+            android:name=".CreateNote"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
             android:name=".NotesActivity"
             android:exported="false" />
         <activity
@@ -33,7 +45,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
